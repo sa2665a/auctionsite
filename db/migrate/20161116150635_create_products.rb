@@ -6,6 +6,8 @@ class CreateProducts < ActiveRecord::Migration[5.0]
     	t.text :title
     	t.text :description
     	t.datetime :deadline
+      t.boolean :active 
+      t.integer :minimum_bid
 
       t.timestamps
     end

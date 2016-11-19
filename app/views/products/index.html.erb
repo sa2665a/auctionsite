@@ -1,11 +1,18 @@
-<h1>Welcome to this bidding app</h1>
+<h1><%= @user.name %></h1>
 
-<p> Ironhack powered </p>
+<%= link_to 'Post New Product', "/users/#{@user.id}/products/new" %>
 
+<ul>
+	<% @products.each do |product| %>
+	<li>
+		<strong>Product:</strong> <%= product.title %><br>
+		<strong>Description:</strong> <%= product.description %> <br>
+		<strong> Deadline: </strong><%= product.deadline.strftime("%F %T") %> <br>
+		<strong> Bids until now: </strong><%= product.minimum_bid %>
 
-<%= link_to "Post new product!", "/products/new" %>
-<br>
-
-<%= link_to "Home", "/" %> 
-
-<div>
+		<%=link_to 'Place New Bid',user_products_show_path(@user.id, product.id)%> <br>
+		<%= link_to 'Edit', "/users/#{@user.id}/products/#{product.id}/edit" %> &nbsp
+		<%= link_to('Delete', user_product_path(@user,product), method: :delete, data:{confirm: 'Are you sure?'}) %>
+	</li>
+	<% end %>
+</ul>

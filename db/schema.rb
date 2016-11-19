@@ -13,8 +13,13 @@
 ActiveRecord::Schema.define(version: 20161116153334) do
 
   create_table "bids", force: :cascade do |t|
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.integer  "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_bids_on_product_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -22,6 +27,8 @@ ActiveRecord::Schema.define(version: 20161116153334) do
     t.text     "title"
     t.text     "description"
     t.datetime "deadline"
+    t.boolean  "active"
+    t.integer  "minimum_bid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["user_id"], name: "index_products_on_user_id"

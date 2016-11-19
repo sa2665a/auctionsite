@@ -1,17 +1,37 @@
 class UsersController < ApplicationController
 
-	def create
+	 def index
+    @users = User.order(created_at: :desc)
+  end
 
-	end
+  def new
+    @user = User.new
+  end
 
-	def show
+  def create
+    @user = User.new(
+      name: params[:user][:name],
+      email: params[:user][:email])
+    
+    @user.save
+    redirect_to "/users/#{@user.id}"
 
-	end
+  end
 
-	def destroy
+  def show
+    @user = User.find_by(id: params[:id])
 
-	end
+    unless @user
+    	render "user_error"
+    	
+    end
+
+  end
+
+  def destroy
+    User.find_by(id: params[:id]).destroy
+    redirect_to "/users"
+  end
 	
-
 	
 end
